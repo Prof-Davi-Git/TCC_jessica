@@ -1,0 +1,22 @@
+/* ============ ALERTA ============ */
+.alert-box{
+  background:var(--brick-tint);
+  border:1px solid rgba(166, 51, 43, 0.3);
+  border-radius:var(--radius);
+  padding:22px;
+  display:flex;
+  gap:16px;
+  align-items:flex-start;
+}
+.alert-box .ico{font-size:26px;}
+.alert-box h4{color:var(--brick);font-size:17px;margin-bottom:6px;}
+
+/* ============ FORMULÁRIO DE RELATO ============ */
+.form-box{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:26px;
+}
+.form-hint{font-size:12px;color:var(--text-faint);margin-top:4px;}
+.form-title{margin-bottom:18px;}

@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Aplica o tema salvo ANTES da página desenhar qualquer coisa,
+         para não "piscar" no modo claro ao trocar de página. -->
+    <script>
+        (function () {
+            try {
+                var tema = localStorage.getItem('theme');
+                if (tema === 'dark' || tema === 'light') {
+                    document.documentElement.setAttribute('data-theme', tema);
+                }
+            } catch (e) {}
+        })();
+    </script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VozAtiva — Rede de apoio contra a violência à mulher</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/acessibilidade.css">
+</head>
+
+
+<body data-page="home">
+
+    <!-- BARRA DE SEGURANÇA -->
+    <div class="safety-bar">
+        <div class="safety-inner">
+            <span class="safety-msg">
+                Este site pode ser fechado a qualquer momento —
+                sua navegação não fica salva no histórico local.
+            </span>
+            <div class="safety-actions">
+                <button class="btn-exit" type="button" onclick="quickExit()">
+                    ↗ Saída rápida
+                    <span class="shortcut">(ESC)</span>
+                </button>
+                <button class="btn-emergency" type="button" onclick="openEmergency()" style="background-color: red;">
+                    ⛑ Preciso de ajuda agora
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- NAVEGAÇÃO -->
+    <nav class="mainnav">
+        <div class="nav-inner">
+
+            <div class="brand">
+                <span class="brand-mark"></span>
+                VozAtiva
+            </div>
+
+            <div class="nav-links" id="navLinks">
+                
+                <button type="button" data-page="home" onclick="navigateTo('home')">Início</button>
+                <button type="button" data-page="noticias" onclick="navigateTo('noticias')">Notícias</button>
+                <button type="button" data-page="denuncias" onclick="navigateTo('denuncias')">Denúncias</button>
+                <button type="button" data-page="ajuda" onclick="navigateTo('ajuda')">Onde buscar ajuda</button>
+                <button type="button" data-page="mapa" onclick="navigateTo('mapa')">Mapa</button>
+                <button type="button" data-page="chat" onclick="navigateTo('chat')">Assistente</button>
+
+                <div class="dropdown">
+                    <button type="button" onclick="toggleMore(event)">Mais ▾</button>
+
+                    <div class="dropdown-menu hidden" id="moreMenu">
+                        <button type="button" data-page="psicologico" onclick="navigateTo('psicologico')">Apoio psicológico</button>
+                        <button type="button" data-page="faq" onclick="navigateTo('faq')">Perguntas frequentes</button>
+                        <button type="button" data-page="historias" onclick="navigateTo('historias')">Histórias de superação</button>
+                        <button type="button" data-page="contatos" onclick="navigateTo('contatos')">Contatos úteis</button>
+                        <button type="button" data-page="materiais" onclick="navigateTo('materiais')">Materiais educativos</button>
+                        <button type="button" data-page="estatisticas" onclick="navigateTo('estatisticas')">Estatísticas</button>
+                        <button type="button" data-page="campanhas" onclick="navigateTo('campanhas')">Campanhas</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-right">
+                <button class="icon-btn" id="themeBtn" type="button" onclick="toggleTheme()" aria-label="Alternar modo escuro">◐</button>
+                <button class="login-btn" type="button" onclick="openLogin()">Entrar</button>
+            </div>
+
+        </div>
+    </nav>
+
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="wrap">
+
+        <!-- HOME -->
+        <section id="page-home" class="page">
+
+            <div class="hero">
+                <div class="hero-grid">
+
+                    <div>
+                        <span class="eyebrow">Rede de apoio · informação · denúncia</span>
+
+                        <h1>Informação clara, apoio real, caminhos seguros.</h1>
+
+                        <p class="lede">
+                            O VozAtiva reúne notícias, orientação e canais de denúncia sobre
+                            violência contra a mulher em um único lugar, pensado para ser
+                            usado com segurança e discrição.
+                        </p>
+
+                        <div class="hero-ctas">
+                            <button class="btn-primary" type="button" onclick="navigateTo('denuncias')">Fazer uma denúncia</button>
+                            <button class="btn-secondary" type="button" onclick="navigateTo('ajuda')">Onde buscar ajuda</button>
+                        </div>
+                    </div>
+
+                    <div class="alone-card">
+                        <span class="eyebrow">Você não está sozinha</span>
+                        <h3>Existe uma rede pronta para te ouvir.</h3>
+                        <p>
+                            Se você está passando por uma situação de violência, o primeiro
+                            passo pode ser só conversar com alguém preparado para isso.
+                            É gratuito, sigiloso e disponível 24 horas.
+                        </p>
+
+                        <div class="hero-support">
+                            <button class="btn-secondary hero-support-btn" type="button" onclick="navigateTo('contatos')">Ver contatos de apoio</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="section quick-access">
+                <div class="section-head"><h2>Acesso rápido</h2></div>
+
+                <div class="grid grid-4">
+
+                    <div class="card qcard" onclick="navigateTo('denuncias')">
+                        <div class="ico"></div>
+                        <h4>Denúncias</h4>
+                        <p>Saiba como e onde denunciar, com segurança.</p>
+                    </div>
+
+                    <div class="card qcard" onclick="navigateTo('ajuda')">
+                        <div class="ico"></div>
+                        <h4>Onde buscar ajuda</h4>
+                        <p>Delegacias, hospitais e centros de atendimento.</p>
+                    </div>
+
+                    <div class="card qcard" onclick="navigateTo('psicologico')">
+                        <div class="ico"></div>
+                        <h4>Apoio psicológico</h4>
+                        <p>Escuta e acompanhamento emocional gratuito.</p>
+                    </div>
+
+                    <div class="card qcard" onclick="navigateTo('mapa')">
+                        <div class="ico"></div>
+                        <h4>Mapa de serviços</h4>
+                        <p>Encontre atendimento perto de você.</p>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- ONDE BUSCAR AJUDA -->
+        <section id="page-ajuda" class="page hidden">
+
+            <div class="page-header">
+                <span class="eyebrow"> Onde buscar ajuda</span>
+                <h2>Rede de atendimento</h2>
+                <p>
+                    Diferentes tipos de serviço para diferentes momentos —
+                    do acolhimento imediato ao acompanhamento de longo prazo.
+                </p>
+            </div>
+
+            <div class="grid grid-3 page-grid">
+
+                <div class="card">
+                    <h4>Delegacias da Mulher (DEAM)</h4>
+                    <p>Unidades especializadas para registrar boletim de ocorrência com equipe treinada.</p>
+                </div>
+
+                <div class="card">
+                    <h4>Hospitais e prontos-socorros</h4>
+                    <p>Atendimento médico e emissão de laudo, essencial em casos de violência física ou sexual.</p>
+                </div>
+
+                <div class="card">
+                    <h4>CRAS e CREAS</h4>
+                    <p>Centros de assistência social com acompanhamento psicossocial e encaminhamentos.</p>
+                </div>
+
+                <div class="card">
+                    <h4>Casas-abrigo</h4>
+                    <p>Acolhimento sigiloso e temporário para mulheres em risco, com os filhos se necessário.</p>
+                </div>
+
+                <div class="card">
+                    <h4>Defensoria Pública</h4>
+                    <p>Orientação jurídica gratuita, incluindo medidas protetivas de urgência.</p>
+                </div>
+
+                <div class="card">
+                    <h4>Núcleos de Atendimento (NUDEM)</h4>
+                    <p>Suporte jurídico e psicológico integrado em alguns municípios.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- APOIO PSICOLÓGICO -->
+        <section id="page-psicologico" class="page hidden">
+
+            <div class="page-header">
+                <span class="eyebrow"> Apoio psicológico</span>
+                <h2>Cuidar da saúde emocional também é parte do caminho</h2>
+                <p>
+                    Sair de uma situação de violência costuma envolver medo, culpa e
+                    exaustão emocional. Buscar apoio psicológico não é fraqueza —
+                    é parte do cuidado.
+                </p>
+            </div>
+
+            <div class="grid grid-2 page-grid">
+
+                <div class="card">
+                    <a href="https://cvv.org.br/"><h4>CVV — Centro de Valorização da Vida</h4></a>
+                    <p>Apoio emocional gratuito e sigiloso, 24h, pelo telefone 188, chat ou e-mail.</p>
+                </div>
+
+                <div class="card">
+                    <a href="https://www.gov.br/saude/pt-br/composicao/saes/desmad/raps/caps"><h4>CAPS — Centros de Atenção Psicossocial</h4></a>
+                    <p>Atendimento psicológico e psiquiátrico gratuito pelo SUS, com equipe multiprofissional.</p>
+                </div>
+
+                <div class="card">
+                    <h4>Grupos de apoio</h4>
+                    <p>Rodas de conversa entre mulheres que vivenciaram situações parecidas, muitas vezes oferecidas por ONGs locais.</p>
+                </div>
+
+                <div class="card">
+                    <h4>Atendimento psicológico em universidades</h4>
+                    <p>Clínicas-escola de psicologia costumam oferecer sessões gratuitas ou a preço social.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- FAQ -->
+        <section id="page-faq" class="page hidden">
+
+            <div class="page-header">
+                <span class="eyebrow">❓ Perguntas frequentes</span>
+                <h2>Dúvidas comuns</h2>
+            </div>
+
+            <div id="faqList" class="page-grid"></div>
+
+        </section>
+
+
+        <!-- HISTÓRIAS -->
+        <section id="page-historias" class="page hidden">
+
+            <div class="page-header">
+                <span class="eyebrow">📖 Histórias de superação</span>
+                <h2>Vozes de quem passou por isso</h2>
+                <p>Relatos fictícios, usados apenas como exemplo de conteúdo para o protótipo.</p>
+            </div>
+
+            <div class="grid grid-3 page-grid" id="storiesGrid"></div>
+
+        </section>
+
+
+        <!-- CONTATOS -->
+        <section id="page-contatos" class="page hidden">
+
+            <div class="page-header">
+                <span class="eyebrow">📞 Contatos úteis</span>
+                <h2>Canais de apoio</h2>
+            </div>
+
+            <div class="grid grid-3 page-grid">
+
+                <div class="hotline">
+                    <div class="num">180</div>
+                    <div class="lbl">Central de Atendimento à Mulher</div>
+                </div>
+
+                <div class="hotline">
+                    <div class="num">190</div>
+                    <div class="lbl">Emergência policial</div>
+                </div>
+
+                <div class="hotline">
+                    <div class="num">188</div>
+                    <div class="lbl">CVV — apoio emocional</div>
+                </div>
+
+                <div class="hotline">
+                    <div class="num">100</div>
+                    <div class="lbl">Disque Direitos Humanos</div>
+                </div>
+
+                <div class="hotline">
+                    <div class="num">129</div>
+                    <div class="lbl">Ligue 129 — Defensoria Pública (varia por estado)</div>
+                </div>
+
+                <div class="hotline">
+                    <div class="num">192</div>
+                    <div class="lbl">SAMU — emergência médica</div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- MATERIAIS EDUCATIVOS -->
+        <section id="page-materiais" class="page hidden">
+        
+            <div class="page-header">
+                <span class="eyebrow">📄 Materiais educativos</span>
+                <h2>Cartilhas e guias</h2>
+                <p>Materiais de apoio para entender direitos, redes de proteção e rotas de fuga seguras.</p>
+            </div>
+        
+            <div class="grid grid-3 page-grid">
+        
+                <div class="card">
+                    <h4>Guia: Medida protetiva de urgência</h4>
+                    <p>Como solicitar e o que esperar do processo.</p>
+                    <div class="card-action">
+                        <a class="chip-btn"
+                           href="pdfs/Tipos mais comuns de medidas protetivas.pdf"
+                           target="_blank">
+                            📄 Abrir PDF
+                        </a>
+                    </div>
+                </div>
+        
+                <div class="card">
+                    <h4>Cartilha: Lei Maria da Penha</h4>
+                    <p>Explicação em linguagem simples dos principais pontos da lei.</p>
+                    <div class="card-action">
+                        <a class="chip-btn"
+                           href="pdfs/Lei Maria da Penha.pdf"
+                           target="_blank">
+                            📄 Abrir PDF
+                        </a>
+                    </div>
+                </div>
+        
+                <div class="card">
+                    <h4>Guia: Plano de segurança pessoal</h4>
+                    <p>Passos práticos para se preparar antes de sair de uma situação de risco.</p>
+                    <div class="card-action">
+                        <a class="chip-btn"
+                           href="pdfs/plano-seguranca.pdf"
+                           target="_blank">
+                            📄 Abrir PDF
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h4>Guia: Como acolher um relato</h4>
+                    <p>Passos práticos para conseguir fornecer ajuda.</p>
+                    <div class="card-action">
+                        <a class="chip-btn"
+                           href="pdfs/Acolher um relato de agressão.pdf"
+                           target="_blank">
+                            📄 Abrir PDF
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h4>Guia: Como indentificar</h4>
+                    <p>sinais de violência ou comportamento agressivo.</p>
+                    <div class="card-action">
+                        <a class="chip-btn"
+                           href="pdfs/Como identificar sinais de violencia ou comportamentos agressivos.pdf"
+                           target="_blank">
+                            📄 Abrir PDF
+                        </a>
+                    </div>
+                </div>
+        
+                
+                <div class="card">
+                    <h4>Guia: Saindo da situação</h4>
+                    <p> Mais sobre estar saindo de uma situação abusiva.</p>
+                    <div class="card-action">
+                        <a class="chip-btn"
+                           href="pdfs/Saindo de uma situação abusiva.pdf"
+                           target="_blank">
+                            📄 Abrir PDF
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        
+        </section>
+            
+
+
+        <!-- ESTATÍSTICAS -->
+        <section id="page-estatisticas" class="page hidden">
+
+            <div class="page-header">
+                <span class="eyebrow">📈 Estatísticas</span>
+                <h2>O cenário em números</h2>
+                <p>Números ilustrativos para fins de protótipo — substituir por dados oficiais na versão final.</p>
+            </div>
+
+            <div class="grid grid-4 page-grid">
+
+                <div class="card stat-card">
+                    <div class="stat-num">600 mil</div>
+                    <div class="stat-lbl">Registros de violência doméstica em 2026</div>
+                </div>
+
+                <div class="card stat-card">
+                    <div class="stat-num">54%</div>
+                    <div class="stat-lbl">Casos praticados por parceiro ou ex-parceiro</div>
+                </div>
+
+                <div class="card stat-card">
+                    <div class="stat-num">180</div>
+                    <div class="stat-lbl">Canal mais usado para denúncia</div>
+                </div>
+
+                <div class="card stat-card">
+                    <div class="stat-num">+70%</div>
+                    <div class="stat-lbl">Aumento de buscas por medida protetiva</div>
+                </div>
+
+            </div>
+
+            <p class="stat-note">
+                *Valores ilustrativos de exemplo — devem ser substituídos por fontes reais e citadas no TCC.
+            </p>
+
+        </section>
+
+
+        <!-- CAMPANHAS -->
+        <section id="page-campanhas" class="page hidden">
+
+            <div class="page-header">
+                <span class="eyebrow">📢 Campanhas</span>
+                <h2>Mobilização e conscientização</h2>
+            </div>
+
+            <div class="grid grid-3 page-grid" id="campaignGrid"></div>
+
+        </section>
+
+    </main>
+
+
+    <!-- RODAPÉ -->
+    <footer>
+        <div class="wrap foot-grid">
+            <div>
+                © VozAtiva — Um TCC feito e pensado em sua segurança.
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- MODAL DE EMERGÊNCIA -->
+    <div id="emergencyModal" class="modal-overlay hidden">
+        <div class="modal-box">
+            <h3>Precisa de ajuda agora?</h3>
+            <p>
+                Se você está em perigo imediato, ligue para um dos números abaixo.
+                É gratuito e funciona 24 horas.
+            </p>
+
+            <div class="hotline-row modal-hotlines">
+                <div class="hotline">
+                    <div class="num">190</div>
+                    <div class="lbl">Polícia</div>
+                </div>
+                <div class="hotline">
+                    <div class="num">180</div>
+                    <div class="lbl">Central da Mulher</div>
+                </div>
+            </div>
+
+            <button class="modal-close" type="button" onclick="closeModal('emergencyModal')">Fechar</button>
+        </div>
+    </div>
+
+
+    <!-- MODAL DE LOGIN -->
+
+    <div id="loginModal" class="modal-overlay hidden">
+        <div class="modal-box">
+    
+        <!-- TELA DE LOGIN -->
+        <div id="telaLogin">
+    
+            <h3>Entrar</h3>
+    
+            <p>
+                Entre na sua conta para acessar seus materiais favoritos
+                e comentar nas notícias.
+            </p>
+    
+            <div class="form-row">
+                <label for="loginEmail">E-mail</label>
+                <input 
+                    id="loginEmail" 
+                    type="email" 
+                    placeholder="seu@email.com"
+                >
+            </div>
+    
+            <div class="form-row">
+                <label for="loginSenha">Senha</label>
+                <input 
+                    id="loginSenha" 
+                    type="password" 
+                    placeholder="••••••••"
+                >
+            </div>
+    
+            <button 
+                id="btnEntrar" 
+                class="modal-close" 
+                type="button"
+            >
+                Entrar
+
+            </button>
+
+            <p class="trocar-tela">
+                Ainda não tem uma conta? Cadastre-se!
+                <button id="btnMostrarCadastro" type="button">
+                    Cadastre-se
+                 </button>
+            </p>
+    
+        </div>
+    
+    
+        <!-- TELA DE CADASTRO -->
+        <div id="telaCadastro" class="hidden">
+    
+            <h3>Criar conta</h3>
+    
+            <p>
+                Cadastre-se para criar sua conta no VozAtiva.
+            </p>
+    
+            <div class="form-row">
+                <label for="cadastroNome">Nome</label>
+                <input 
+                    id="cadastroNome" 
+                    type="text" 
+                    placeholder="Seu nome"
+                >
+            </div>
+    
+            <div class="form-row">
+                <label for="cadastroEmail">E-mail</label>
+                <input 
+                    id="cadastroEmail" 
+                    type="email" 
+                    placeholder="seu@email.com"
+                >
+            </div>
+    
+            <div class="form-row">
+                <label for="cadastroSenha">Senha</label>
+                <input 
+                    id="cadastroSenha" 
+                    type="password" 
+                    placeholder="••••••••"
+                >
+            </div>
+    
+            <div class="form-row">
+                <label for="cadastroSenhaConfirmacao">
+                    Confirmar senha
+                </label>
+                <input 
+                    id="cadastroSenhaConfirmacao" 
+                    type="password" 
+                    placeholder="••••••••"
+                >
+            </div>
+    
+            <button 
+                id="btnCadastrar" 
+                class="modal-close" 
+                type="button"
+            >
+                Criar conta
+            </button>
+    
+            <p class="trocar-tela">
+                Já tem uma conta?
+                <button id="btnMostrarLogin" type="button">
+                    Entrar
+                </button>
+            </p>
+    
+        </div>
+    
+    </div>
+
+    
+    </div>
+    
+    </div>
+
+    <!-- =====================================================
+     VLIBRAS
+===================================================== -->
+
+<div vw class="enabled">
+
+    <div vw-access-button class="active"></div>
+
+    <div vw-plugin-wrapper>
+
+        <div class="vw-plugin-top-wrapper"></div>
+
+    </div>
+
+</div>
+
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+
+<script>
+    new window.VLibras.Widget(
+        "https://vlibras.gov.br/app"
+    );
+</script>
+
+    <script src="js/common.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/acessibilidade.js"></script>
+
+</body>
+
+</html>

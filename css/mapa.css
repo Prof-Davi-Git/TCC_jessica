@@ -1,0 +1,108 @@
+/* =========================================================
+   MAPA — GOOGLE MAPS
+========================================================= */
+
+.map-search {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.map-search input {
+    flex: 1;
+    min-width: 220px;
+    padding: 12px 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 15px;
+}
+
+.map-search button {
+    padding: 12px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+}
+
+.map-search button:hover {
+    opacity: 0.85;
+}
+
+
+/* FILTROS */
+
+.map-filters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+
+.map-filter {
+    padding: 9px 14px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    background: white;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.map-filter:hover {
+    transform: translateY(-1px);
+}
+
+.map-filter.active {
+    font-weight: 600;
+}
+
+
+/* STATUS */
+
+.map-status {
+    margin: 12px 0;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.04);
+    font-size: 14px;
+}
+
+
+/* RESULTADOS */
+
+.result-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.result-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+
+    padding: 14px;
+
+    border-radius: 10px;
+
+    background: white;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.result-item small {
+    opacity: 0.7;
+}
+
+.result-item button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: 600;
+}

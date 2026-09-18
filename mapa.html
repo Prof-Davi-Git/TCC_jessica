@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <script>
+        (function () {
+            try {
+                var tema = localStorage.getItem('theme');
+                if (tema === 'dark' || tema === 'light') {
+                    document.documentElement.setAttribute('data-theme', tema);
+                }
+            } catch (e) {}
+        })();
+    </script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mapa — VozAtiva</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,0..144,500&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/mapa.css">
+
+    <style>
+        #map {
+            width: 100%;
+            height: 450px;
+            border-radius: var(--radius, 12px);
+            overflow: hidden;
+        }
+
+        .map-status {
+            margin-top: 10px;
+        }
+
+        .result-list {
+            margin-top: 12px;
+            display: grid;
+            gap: 8px;
+        }
+
+        .result-item {
+            cursor: pointer;
+            padding: 12px 14px;
+            border: 1px solid rgba(0, 0, 0, .12);
+            border-radius: 10px;
+            background: var(--card, #fff);
+            transition: transform .15s ease, box-shadow .15s ease;
+        }
+
+        .result-item:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, .08);
+        }
+
+        .result-item small {
+            opacity: .75;
+        }
+    </style>
+</head>
+
+<body data-page="mapa">
+
+    <div class="safety-bar">
+        <div class="safety-inner">
+            <span class="safety-msg">
+                Este site pode ser fechado a qualquer momento —
+                sua navegação não fica salva no histórico local.
+            </span>
+
+            <div class="safety-actions">
+                <button class="btn-exit" type="button" onclick="quickExit()">
+                    ↗ Saída rápida <span class="shortcut">(ESC)</span>
+                </button>
+
+                <button
+                    class="btn-emergency"
+                    type="button"
+                    onclick="openEmergency()"
+                    style="background-color: red;"
+                >
+                    ⛑ Preciso de ajuda agora
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <nav class="mainnav">
+        <div class="nav-inner">
+
+            <div class="brand">
+                <span class="brand-mark"></span>
+                VozAtiva
+            </div>
+
+            <div class="nav-links" id="navLinks">
+                <button type="button" data-page="home" onclick="navigateTo('home')">Início</button>
+                <button type="button" data-page="noticias" onclick="navigateTo('noticias')">Notícias</button>
+                <button type="button" data-page="denuncias" onclick="navigateTo('denuncias')">Denúncias</button>
+                <button type="button" data-page="ajuda" onclick="navigateTo('ajuda')">Onde buscar ajuda</button>
+                <button type="button" data-page="mapa" onclick="navigateTo('mapa')">Mapa</button>
+                <button type="button" data-page="chat" onclick="navigateTo('chat')">Assistente</button>
+
+                <div class="dropdown">
+                    <button type="button" onclick="toggleMore(event)">Mais ▾</button>
+
+                    <div class="dropdown-menu hidden" id="moreMenu">
+                        <button type="button" data-page="psicologico" onclick="navigateTo('psicologico')">Apoio psicológico</button>
+                        <button type="button" data-page="faq" onclick="navigateTo('faq')">Perguntas frequentes</button>
+                        <button type="button" data-page="historias" onclick="navigateTo('historias')">Histórias de superação</button>
+                        <button type="button" data-page="contatos" onclick="navigateTo('contatos')">Contatos úteis</button>
+                        <button type="button" data-page="materiais" onclick="navigateTo('materiais')">Materiais educativos</button>
+                        <button type="button" data-page="educacao" onclick="navigateTo('educacao')">Área educacional</button>
+                        <button type="button" data-page="estatisticas" onclick="navigateTo('estatisticas')">Estatísticas</button>
+                        <button type="button" data-page="campanhas" onclick="navigateTo('campanhas')">Campanhas</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-right">
+                <button
+                    class="icon-btn"
+                    id="themeBtn"
+                    type="button"
+                    onclick="toggleTheme()"
+                    aria-label="Alternar modo escuro"
+                >
+                    ◐
+                </button>
+
+                <button class="login-btn" type="button" onclick="openLogin()">
+                    Entrar
+                </button>
+            </div>
+
+        </div>
+    </nav>
+
+    <main class="wrap">
+
+        <section id="page-mapa" class="page">
+
+            <div class="page-header">
+                <span class="eyebrow">📍 Mapa</span>
+
+                <h2>Encontre atendimento perto de você</h2>
+
+                <p>
+                    Pesquise uma cidade, endereço ou local para encontrar
+                    delegacias, hospitais e centros de atendimento próximos.
+                </p>
+            </div>
+
+            <div class="map-section">
+
+                <div class="map-search">
+
+                    <input
+                        id="map-search"
+                        type="text"
+                        placeholder="Digite uma cidade, endereço ou local..."
+                        autocomplete="off"
+                    >
+
+                    <button
+                        id="map-search-btn"
+                        type="button"
+                        onclick="buscarEndereco()"
+                    >
+                        Buscar
+                    </button>
+
+                    <button
+                        type="button"
+                        onclick="usarMinhaLocalizacao()"
+                        title="Usar minha localização"
+                        aria-label="Usar minha localização"
+                    >
+                        📍
+                    </button>
+
+                </div>
+
+                <div class="map-filters">
+
+                    <button
+                        id="filter-police"
+                        type="button"
+                        class="map-filter active"
+                        onclick="buscarTipo('police')"
+                    >
+                        Delegacias
+                    </button>
+
+                    <button
+                        id="filter-hospital"
+                        type="button"
+                        class="map-filter"
+                        onclick="buscarTipo('hospital')"
+                    >
+                        Hospitais
+                    </button>
+
+                    <button
+                        id="filter-cras"
+                        type="button"
+                        class="map-filter"
+                        onclick="buscarTipo('cras')"
+                    >
+                        CRAS
+                    </button>
+
+                </div>
+
+                <div id="map" aria-label="Mapa de locais de atendimento"></div>
+
+                <div id="map-status" class="map-status">
+                    Carregando mapa...
+                </div>
+
+                <div id="result-list" class="result-list"></div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="wrap foot-grid">
+            <div>
+                © VozAtiva — protótipo acadêmico (TCC).
+                Nenhuma informação enviada por este site é armazenada de verdade.
+            </div>
+
+            <div class="social-links">
+                <span>Instagram</span>
+                <span>Twitter/X</span>
+                <span>Facebook</span>
+            </div>
+        </div>
+    </footer>
+
+    <div id="emergencyModal" class="modal-overlay hidden">
+        <div class="modal-box">
+
+            <h3>Precisa de ajuda agora?</h3>
+
+            <p>
+                Se você está em perigo imediato, ligue para um dos números abaixo.
+                É gratuito e funciona 24 horas.
+            </p>
+
+            <div class="hotline-row modal-hotlines">
+
+                <div class="hotline">
+                    <div class="num">190</div>
+                    <div class="lbl">Polícia</div>
+                </div>
+
+                <div class="hotline">
+                    <div class="num">180</div>
+                    <div class="lbl">Central da Mulher</div>
+                </div>
+
+            </div>
+
+            <button
+                class="modal-close"
+                type="button"
+                onclick="closeModal('emergencyModal')"
+            >
+                Fechar
+            </button>
+
+        </div>
+    </div>
+
+    <div id="loginModal" class="modal-overlay hidden">
+        <div class="modal-box">
+
+            <h3>Entrar</h3>
+
+            <p>
+                Área do usuário — protótipo. Login permitiria salvar materiais
+                favoritos e comentar nas notícias.
+            </p>
+
+            <div class="form-row">
+                <label for="loginEmail">E-mail</label>
+                <input id="loginEmail" type="email" placeholder="seu@email.com">
+            </div>
+
+            <div class="form-row">
+                <label for="loginSenha">Senha</label>
+                <input id="loginSenha" type="password" placeholder="••••••••">
+            </div>
+
+            <button
+                class="modal-close"
+                type="button"
+                onclick="closeModal('loginModal')"
+            >
+                Entrar
+            </button>
+
+        </div>
+    </div>
+
+    <!-- JS geral do site -->
+    <script src="js/common.js"></script>
+
+    <!-- JS exclusivo do mapa -->
+    <script src="js/mapa.js"></script>
+
+    <script
+        async
+        defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDukS3Yj3JqGmlW_VcPmGya6dU1WCtn-wg&callback=initMap">
+    </script>
+
+</body>
+</html>

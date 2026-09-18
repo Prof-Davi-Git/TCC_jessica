@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Aplica o tema salvo ANTES da página desenhar qualquer coisa,
+         para não "piscar" no modo claro ao trocar de página. -->
+    <script>
+        (function () {
+            try {
+                var tema = localStorage.getItem('theme');
+                if (tema === 'dark' || tema === 'light') {
+                    document.documentElement.setAttribute('data-theme', tema);
+                }
+            } catch (e) {}
+        })();
+    </script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Denúncias — VozAtiva</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/denuncias.css">
+</head>
+
+
+<body data-page="denuncias">
+
+    <!-- BARRA DE SEGURANÇA -->
+    <div class="safety-bar">
+        <div class="safety-inner">
+            <span class="safety-msg">
+                Este site pode ser fechado a qualquer momento —
+                sua navegação não fica salva no histórico local.
+            </span>
+            <div class="safety-actions">
+                <button class="btn-exit" type="button" onclick="quickExit()">
+                    ↗ Saída rápida
+                    <span class="shortcut">(ESC)</span>
+                </button>
+                <button class="btn-emergency" type="button" onclick="openEmergency()" style="background-color: red;">
+                    ⛑ Preciso de ajuda agora
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- NAVEGAÇÃO -->
+    <nav class="mainnav">
+        <div class="nav-inner">
+
+            <div class="brand">
+                <span class="brand-mark"></span>
+                VozAtiva
+            </div>
+
+            <div class="nav-links" id="navLinks">
+               
+                <button type="button" data-page="home" onclick="navigateTo('home')">Início</button>
+                <button type="button" data-page="noticias" onclick="navigateTo('noticias')">Notícias</button>
+                <button type="button" data-page="denuncias" onclick="navigateTo('denuncias')">Denúncias</button>
+                <button type="button" data-page="ajuda" onclick="navigateTo('ajuda')">Onde buscar ajuda</button>
+                <button type="button" data-page="mapa" onclick="navigateTo('mapa')">Mapa</button>
+                <button type="button" data-page="chat" onclick="navigateTo('chat')">Assistente</button>
+
+                <div class="dropdown">
+                    <button type="button" onclick="toggleMore(event)">Mais ▾</button>
+
+                    <div class="dropdown-menu hidden" id="moreMenu">
+                        <button type="button" data-page="psicologico" onclick="navigateTo('psicologico')">Apoio psicológico</button>
+                        <button type="button" data-page="faq" onclick="navigateTo('faq')">Perguntas frequentes</button>
+                        <button type="button" data-page="historias" onclick="navigateTo('historias')">Histórias de superação</button>
+                        <button type="button" data-page="contatos" onclick="navigateTo('contatos')">Contatos úteis</button>
+                        <button type="button" data-page="materiais" onclick="navigateTo('materiais')">Materiais educativos</button>
+                        <button type="button" data-page="educacao" onclick="navigateTo('educacao')">Área educacional</button>
+                        <button type="button" data-page="estatisticas" onclick="navigateTo('estatisticas')">Estatísticas</button>
+                        <button type="button" data-page="campanhas" onclick="navigateTo('campanhas')">Campanhas</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-right">
+                <button class="icon-btn" id="themeBtn" type="button" onclick="toggleTheme()" aria-label="Alternar modo escuro">◐</button>
+                <button class="login-btn" type="button" onclick="openLogin()">Entrar</button>
+            </div>
+
+        </div>
+    </nav>
+
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="wrap">
+
+        <section id="page-denuncias" class="page">
+
+            <div class="page-header">
+                <span class="eyebrow">🚨 Denúncias</span>
+                <h2>Como denunciar</h2>
+                <p>
+                    Você pode denunciar por telefone, presencialmente ou, em alguns
+                    estados, on-line. Veja os canais oficiais e, se preferir, descreva
+                    sua situação abaixo para receber orientação.
+                </p>
+            </div>
+
+
+            <!-- ALERTA -->
+            <div class="alert-box page-top">
+                <div class="ico">☎</div>
+                <div>
+                    <h4>
+                        Em caso de risco imediato, ligue 190 (Polícia Militar) ou 180
+                        (Central de Atendimento à Mulher).
+                    </h4>
+                    <p>Essas linhas funcionam 24 horas, todos os dias, em todo o Brasil.</p>
+                </div>
+            </div>
+
+
+            <!-- TELEFONES -->
+            <div class="hotline-row">
+                <div class="hotline">
+                    <div class="num">180</div>
+                    <div class="lbl">Central de Atendimento à Mulher</div>
+                </div>
+                <div class="hotline">
+                    <div class="num">190</div>
+                    <div class="lbl">Emergência policial</div>
+                </div>
+                <div class="hotline">
+                    <div class="num">100</div>
+                    <div class="lbl">Disque Direitos Humanos</div>
+                </div>
+            </div>
+
+
+            <!-- FORMULÁRIO -->
+            <div class="form-box section-top">
+
+                <h4 class="form-title">Registrar relato (protótipo)</h4>
+
+                <div class="form-row">
+                    <label for="tipoOcorrencia">Tipo de ocorrência</label>
+                    <select id="tipoOcorrencia">
+                        <option>Violência física</option>
+                        <option>Violência psicológica</option>
+                        <option>Violência moral</option>
+                        <option>Violência patrimonial</option>
+                        <option>Violência sexual</option>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <label for="cidade">Cidade / CEP</label>
+                    <input id="cidade" type="text" placeholder="Ex: São Paulo, SP">
+                </div>
+
+                <div class="form-row">
+                    <label for="relato">Relato (opcional)</label>
+                    <textarea id="relato" placeholder="Descreva o que aconteceu, se quiser."></textarea>
+                </div>
+
+                <div class="form-row">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="anonimo">
+                        <center>
+                       Desejo manter meu relato anônimo
+                    </label>
+                </center>
+                </div>
+
+                <button
+                class="btn-primary"
+                type="button"
+                onclick="enviarDenuncia()"
+            >
+                Enviar relato
+            </button>
+        
+                <p class="form-hint">
+                    Este é um protótipo de TCC — nenhum dado é enviado de verdade.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- RODAPÉ -->
+    <footer>
+        <div class="wrap foot-grid">
+            <div>
+                © VozAtiva — protótipo acadêmico (TCC).
+                Nenhuma informação enviada por este site é armazenada de verdade.
+            </div>
+            <div class="social-links">
+                <span>Instagram</span>
+                <span>Twitter/X</span>
+                <span>Facebook</span>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- MODAL DE EMERGÊNCIA -->
+    <div id="emergencyModal" class="modal-overlay hidden">
+        <div class="modal-box">
+            <h3>Precisa de ajuda agora?</h3>
+            <p>
+                Se você está em perigo imediato, ligue para um dos números abaixo.
+                É gratuito e funciona 24 horas.
+            </p>
+
+            <div class="hotline-row modal-hotlines">
+                <div class="hotline">
+                    <div class="num">190</div>
+                    <div class="lbl">Polícia</div>
+                </div>
+                <div class="hotline">
+                    <div class="num">180</div>
+                    <div class="lbl">Central da Mulher</div>
+                </div>
+            </div>
+
+            <button class="modal-close" type="button" onclick="closeModal('emergencyModal')">Fechar</button>
+        </div>
+    </div>
+
+
+    <!-- MODAL DE LOGIN -->
+    <div id="loginModal" class="modal-overlay hidden">
+        <div class="modal-box">
+            <h3>Entrar</h3>
+            <p>
+                Área do usuário — protótipo. Login permitiria salvar materiais
+                favoritos e comentar nas notícias.
+            </p>
+
+            <div class="form-row">
+                <label for="loginEmail">E-mail</label>
+                <input id="loginEmail" type="email" placeholder="seu@email.com">
+            </div>
+
+            <div class="form-row">
+                <label for="loginSenha">Senha</label>
+                <input id="loginSenha" type="password" placeholder="••••••••">
+            </div>
+
+            <button class="modal-close" type="button" onclick="closeModal('loginModal')">Entrar</button>
+        </div>
+    </div>
+
+    <script src="js/denuncias.js"></script>
+    <script src="js/common.js"></script>
+
+</body>
+
+</html>

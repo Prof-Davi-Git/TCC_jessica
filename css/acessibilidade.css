@@ -1,0 +1,206 @@
+/* =========================================================
+   ACESSIBILIDADE - VOZATIVA
+========================================================= */
+
+/* Botão principal */
+#botaoAcessibilidade {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 99998;
+
+    width: 58px;
+    height: 58px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #ff00bf;
+    color: white;
+
+    font-size: 26px;
+    cursor: pointer;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: 0.2s;
+}
+
+#botaoAcessibilidade:hover {
+    transform: scale(1.08);
+}
+
+/* Painel */
+#acessibilidadePainel {
+    position: fixed;
+    right: 20px;
+    bottom: 90px;
+
+    width: 280px;
+
+    background: white;
+    color: #222;
+
+    border-radius: 15px;
+
+    padding: 18px;
+
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.25);
+
+    z-index: 99997;
+
+    display: none;
+}
+
+/* Painel aberto */
+#acessibilidadePainel.aberto {
+    display: block;
+}
+
+/* Título */
+#acessibilidadePainel h2 {
+    margin: 0 0 15px 0;
+
+    font-size: 20px;
+    color: #ff00bf;
+}
+
+/* Botões */
+.acessibilidade-opcao {
+    width: 100%;
+
+    border: none;
+    border-radius: 9px;
+
+    padding: 11px;
+
+    margin-bottom: 8px;
+
+    background: #f2f2f2;
+    color: #222;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+    text-align: left;
+
+    transition: 0.2s;
+}
+
+.acessibilidade-opcao:hover {
+    background: #e5e5e5;
+}
+
+/* Botão ativado */
+.acessibilidade-opcao.ativo {
+    background: #ff00bf;
+    color: white;
+}
+
+/* Separador */
+.acessibilidade-separador {
+    height: 1px;
+
+    background: #ddd;
+
+    margin: 14px 0;
+}
+
+/* Informação */
+.acessibilidade-info {
+    font-size: 12px;
+
+    line-height: 1.4;
+
+    color: #666;
+
+    margin-top: 10px;
+}
+
+/* Tamanho da fonte */
+body.acessibilidade-fonte-grande {
+    font-size: 120%;
+}
+
+body.acessibilidade-fonte-maior {
+    font-size: 140%;
+}
+
+body.acessibilidade-fonte-normal {
+    font-size: 100%;
+}
+
+/* Garantir que elementos de texto acompanhem o tamanho */
+body.acessibilidade-fonte-grande p,
+body.acessibilidade-fonte-grande li,
+body.acessibilidade-fonte-grande a,
+body.acessibilidade-fonte-grande button,
+body.acessibilidade-fonte-grande label,
+body.acessibilidade-fonte-grande input,
+body.acessibilidade-fonte-grande textarea,
+body.acessibilidade-fonte-grande select {
+    font-size: 1.2em;
+}
+
+body.acessibilidade-fonte-maior p,
+body.acessibilidade-fonte-maior li,
+body.acessibilidade-fonte-maior a,
+body.acessibilidade-fonte-maior button,
+body.acessibilidade-fonte-maior label,
+body.acessibilidade-fonte-maior input,
+body.acessibilidade-fonte-maior textarea,
+body.acessibilidade-fonte-maior select {
+    font-size: 1.4em;
+}
+
+/* Destacar elemento que está sendo lido */
+.elemento-sendo-lido {
+    outline: 3px solid #ff00bf !important;
+    outline-offset: 3px !important;
+}
+
+/* Modo alto contraste */
+body.alto-contraste {
+    background: #000 !important;
+    color: #fff !important;
+}
+
+body.alto-contraste * {
+    background-color: #000 !important;
+    color: #fff !important;
+    border-color: #fff !important;
+}
+
+body.alto-contraste a {
+    color: #ffff00 !important;
+}
+
+/* VLibras */
+[vw] {
+    z-index: 99990 !important;
+}
+
+/* Celular */
+@media (max-width: 600px) {
+
+    #botaoAcessibilidade {
+        right: 12px;
+        bottom: 12px;
+
+        width: 52px;
+        height: 52px;
+    }
+
+    #acessibilidadePainel {
+        right: 12px;
+        bottom: 75px;
+
+        width: calc(100% - 24px);
+        max-width: 300px;
+    }
+}
