@@ -326,6 +326,32 @@ footer{border-top:1px solid var(--line);padding:40px 0;margin-top:20px;}
 }
 .modal-hotlines{margin-top:0;}
 
+/* ============ ATUALIZAÇÃO 18/09/2026 - AUTENTICAÇÃO ============ */
+.auth-modal{position:relative;}
+.auth-close{
+  position:absolute;
+  top:12px;
+  right:14px;
+  border:none;
+  background:transparent;
+  color:var(--text-soft);
+  font-size:26px;
+  line-height:1;
+}
+.auth-submit{width:100%;}
+.auth-submit:disabled{opacity:.65;cursor:wait;}
+.trocar-tela{text-align:center;margin-top:16px !important;}
+.auth-link{
+  border:none;
+  background:transparent;
+  color:var(--teal);
+  font-weight:700;
+  padding:0;
+}
+.auth-status{min-height:22px;margin:-4px 0 10px;font-size:13px;}
+.auth-status.erro{color:#b42318;}
+.auth-status.sucesso{color:#087443;}
+
 /* ============ RESPONSIVIDADE ============ */
 @media (max-width: 820px) {
   .hero-grid{grid-template-columns:1fr;}
